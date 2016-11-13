@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-
+	
 	/**
 	 * Index Page for this controller.
 	 *
@@ -18,8 +18,64 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$this->load->view('welcome_message');
+
+	function __construct(){
+		parent::__construct();
+		$this->load->helper(array('form', 'url'));
+		$this->view->layout = 'partials/layout';
+		$this->view->load('header', 'partials/header');
+		$this->view->load('footer', 'partials/footer');
+	
+	}		
+	public function index(){	
+		$this->view->load('content', 'home_page');
+		$this->view->render();
+		
+		
+	}
+	public function authentication(){
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+
+		if($email!='' && $password!=''){
+			$query = $this->db->get_where('user',array('email' => $email, 'password' => $password));
+			$result = $query->row();
+
+			if($result){
+				echo 'Welcome '.$result->fullName.' Your role in our system is '.$result->role;
+				redirect('dashboard');
+			}else{
+				echo 'User authentication failure...';
+			}
+		}else{
+			echo 'Enter Id or Password';
+		}
+		
+	}
+
+	public function register(){
+		
+
+		$fullName = $this->input->post('fullName');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$role = $this->input->post('role');
+
+		/*
+		if($fullName!='' && $email!='' && $password!='' && $role!=''){
+			$query = $this->db->get_where('user',array('email' => $email, 'password' => $password));
+			$result = $query->row();
+
+			if($result){
+				echo 'Welcome '.$result->fullName.' Your role in our system is '.$result->role;
+				redirect('dashboard');
+			}else{
+				echo 'User authentication failure...';
+			}
+		}else{
+			echo 'Enter Id or Password';
+		}
+		*/
+		echo 'Reach Here';
 	}
 }

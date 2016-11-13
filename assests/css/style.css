@@ -1,0 +1,107 @@
+.home-body { 
+  background: url(../img/home.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: inline;
+}
+a{
+    color: #2196F3;
+    text-decoration: none;
+    background-color: transparent
+}
+.headln{
+    font-family: 'Courgette', cursive !important;
+    font-size: 52px;
+    line-height: 90px;
+}
+.header{
+    background-color:rgba(52, 49, 50, 0.77);
+    height: 10%;
+    width: 100%;
+    color: white;
+    font-family: 'Monoton', cursive;
+    
+    text-align: left;
+     position: absolute;
+     text-indent: 20px;
+}
+.loginDiv{
+    color: white;
+    
+    text-align: center;
+    position: fixed;
+    margin-top: 13%;
+    margin-left: 15%;
+    line-height: 5rem;
+    
+}
+.logbtn{
+    padding-top: 10px;
+    
+}
+.btn-success{
+    width: 100% !important;
+}
+.footer {
+    background-color: rgba(52, 49, 50, 0.77);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    overflow:hidden;
+    color: white;
+    text-align: left;
+    text-indent: 10%;
+}  
+.inner-body { 
+  background: url(assests/home2.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.inner-body{
+    background:#7e7e87
+}
+.comment {
+    color: white;
+    text-align: center;
+    position: fixed;
+    margin-top: 5%;
+    margin-left: 38%;
+    line-height: 5rem;
+}
+.contactbtn{
+    padding-top: 10px;
+    background: black;
+    
+}
+.btn-submit{
+    color: #fff;
+    background-color: black;
+    border-color: #7e7e87;
+    width:100% ;
+}
+.btn-submit:hover{
+    color: #fff !important;
+    background-color: black;
+    border-color: #7e7e87
+}
+.other-links{
+
+    float:right;
+    margin-right:50px;
+    color: white;
+}
+.checkIn{
+   position: relative;
+}
+/*
+font-family: 'Bad Script', cursive;
+font-family: 'Bungee Shade', cursive;
+font-family: 'Shrikhand', cursive;
+font-family: 'Monoton', cursive;
+*/

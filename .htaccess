@@ -1,0 +1,16 @@
+RewriteEngine on
+Options +FollowSymlinks
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+RewriteRule /\.svn /index.php
+
+<IfModule autoindex_module>
+    IndexIgnore .svn
+</IfModule>
+
+
+php_value upload_max_filesize 20M
+php_value post_max_size 20M

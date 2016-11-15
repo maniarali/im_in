@@ -14,6 +14,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 
 	<body class="home-body">
-    <div class="header">
+    <!--<div class="header">
        <h2>I'M In</h2>			
-    </div>
+    </div>-->

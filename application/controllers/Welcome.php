@@ -61,21 +61,27 @@ class Welcome extends CI_Controller {
 		$password = $this->input->post('password');
 		$role = $this->input->post('role');
 
-		/*
+		echo $fullName ;
+		echo $email;
+		echo $password;
+		echo $role;	
 		if($fullName!='' && $email!='' && $password!='' && $role!=''){
-			$query = $this->db->get_where('user',array('email' => $email, 'password' => $password));
-			$result = $query->row();
+			
+			$data = array(
+				'fullName' => $fullName,
+				'email' => $email,
+				'password' => $password,
+				'role' => $role
+			);
 
-			if($result){
-				echo 'Welcome '.$result->fullName.' Your role in our system is '.$result->role;
-				redirect('dashboard');
-			}else{
-				echo 'User authentication failure...';
-			}
+
+			$this->load->model('Attendance');
+			$this->Attendance->markIn($data);
+
 		}else{
-			echo 'Enter Id or Password';
+			echo 'Somthing is missing';
 		}
-		*/
-		echo 'Reach Here';
+		
+		
 	}
 }

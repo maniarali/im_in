@@ -1,13 +1,12 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>	
-
-<?php echo form_open("welcome/register"); ?>
+			<?php echo form_open(); ?>
 				
-					<input type="text" class="form-control" name="fullname" placeholder="Full Name">
+					<input type="text" class="form-control" name="fullName" placeholder="Full Name">
 					<input type="text" class="form-control" name="email" placeholder="Email">
-					<input type="text" class="form-control" name="password" placeholder="Password">
-					<input type="text" class="form-control" name="role" placeholder="Role">
-				<button type="submit" class="btn btn-submit">Contact</button>
+					<input type="password" class="form-control" name="password" placeholder="Password">
+					<select class="form-control" name="role">
+						<option value="employee">Employee</option>
+						<option value="manager">Manager</option>
+					</select>
+				<button type="submit" class="btn btn-submit">Submit</button>
 			</form>
         

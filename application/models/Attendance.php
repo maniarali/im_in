@@ -5,8 +5,18 @@ class Attendance extends CI_Model{
         parent::__construct();
     }
 
+	function check_today_record($id = NULL)
+	{
+		if (!$id)
+			return NULL;
+		$this->db->order_by('id', 'desc');
+		$query = $this->db->get_where('attendance',array('userId' => $id, 'date' => date('Y-m-d')));
+		$result = $query->row();
+		return $result;
+	}
+
     function markIn($data){
-        $this->db->insert('attendance', $data);
+        return $this->db->insert('attendance', $data);
     }
     function markOut($data){
         $this->db->set('timeOut', $data['timeOut']);
@@ -14,7 +24,7 @@ class Attendance extends CI_Model{
         $array = array('userId' => $data['userId'], 'date' => $data['date']);
         $this->db->where($array);
         
-        $this->db->update('attendance');
+        return $this->db->update('attendance');
     }       
 }
 ?>

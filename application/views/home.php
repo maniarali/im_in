@@ -1,14 +1,15 @@
-
-
 <div class="loginDiv">
 	<div class="headln"><p>Welcome! Login?</p></div>
-	<?php echo form_open("welcome/authentication"); ?>
+	<?php if (isset($error)) : ?>
+		<?php echo $error; ?>
+	<?php endif; ?>
+	<?php echo form_open("users"); ?>
 		<div class="form-inline">
 			<div class="form-group">
-				<input type="email" class="form-control" name="email" value="<?php echo set_value('email'); ?>" id="email" placeholder="Username">
+				<input type="email" class="form-control" name="email" value="maniarali@gmail.com<?php //echo set_value('email'); ?>" id="email" placeholder="Username">
 			</div>
 			<div class="form-group">
-				<input type="password" class="form-control" name="password" value="<?php echo set_value('password'); ?>" id="paas" placeholder="Password">
+				<input type="password" class="form-control" name="password" value="123<?php //echo set_value('password'); ?>" id="paas" placeholder="Password">
 			</div>
 		</div>
 		<div class="logbtn">

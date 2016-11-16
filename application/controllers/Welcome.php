@@ -19,10 +19,6 @@ class Welcome extends CI_Controller {
 		$password = $this->input->post('password');
 		$role = $this->input->post('role');
 
-		echo $fullName ;
-		echo $email;
-		echo $password;
-		echo $role;	
 		if($fullName!='' && $email!='' && $password!='' && $role!=''){
 			
 			$data = array(

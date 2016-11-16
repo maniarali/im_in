@@ -22,5 +22,14 @@ class User extends CI_Model{
         return $this->db->insert('user', $data);
     }
 
+    function listEmployees()
+    {   
+        $this->db->select('id, fullName, email, role, status');
+        $this->db->where('role !=', 'admin');
+        $query = $this->db->get('user');
+        $result = $query->result();
+        return $result;
+    }
+
 }
 ?>

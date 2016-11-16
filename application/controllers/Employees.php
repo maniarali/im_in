@@ -107,6 +107,18 @@ class Employees extends CI_Controller {
 		redirect('dashboard');
 	}
 
+	public function listEmployees()
+	{
+		$data = array();
+		$this->load->model('User');
+		$data['employees'] = $this->User->listEmployees();
+
+		$this->view->set($data);
+		$this->view->load('content', 'listEmployees');
+		$this->view->render();
+
+
+	}
 	public function register()
 	{
 		$data = array();

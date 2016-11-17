@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
+					<?php $attendance_record = $this->session->userdata('attendance_record'); ?>
 					<?php if ($attendance_record['check_in']) : ?>
 						<a href="<?php echo site_url('employees/checkIn'); ?>" class="btn btn-success btn-sm">Check In</a>
 					<?php endif; ?>
@@ -56,20 +57,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li class="active">
+							<li <?php echo (isset($navigation) && $navigation == 'overview' ? 'class="active"' : ''); ?>>
 							<a href="<?php echo site_url('employees/listAttendances'); ?>">
 							<i class="glyphicon glyphicon-home"></i>
 							Overview </a>
 						</li>
 						<?php if ($this->session->userdata('role') == 'admin' || $this->session->userdata('role') == 'manager') : ?>
-							<li>
+							<li <?php echo (isset($navigation) && $navigation == 'employees' ? 'class="active"' : ''); ?>>
 								<a href="<?php echo site_url('employees/listEmployees'); ?>">
 								<i class="glyphicon glyphicon-ok"></i>
 								Employees </a>
 							</li>
 							<?php endif; ?>
 						<?php if ($this->session->userdata('role') == 'admin' || $this->session->userdata('role') == 'manager') : ?>
-							<li>
+							<li <?php echo (isset($navigation) && $navigation == 'register' ? 'class="active"' : ''); ?>>
 								<a href="<?php echo site_url('employees/register'); ?>">
 								<i class="glyphicon glyphicon-ok"></i>
 								Register </a>

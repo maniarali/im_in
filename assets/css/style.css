@@ -329,3 +329,14 @@ Licensed under MIT
   color: #5a7391;
   min-height: 460px;
 }
+
+ table{
+   font-size: 14px;
+  
+ }
+table th{
+  background-color: #c9302c;
+  color:#fff;
+
+}
+     

@@ -15,9 +15,11 @@
 				<div class="alert alert-success">
   					<strong>Success!</strong> User have successfully register.
 				</div>
+				<?php if ($this->session->flashdata('error')) : ?>
 				<div class="alert alert-danger">
-  					<strong>Success!</strong> Not able to register user
+					<strong>Error!</strong> <?php echo $this->session->flashdata('error'); ?>
 				</div>
+				<?php endif; ?>
             </div>
 		</div>
 	</div>

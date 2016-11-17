@@ -19,7 +19,6 @@ class Employees extends CI_Controller {
 	public function index()
 	{
 		$data = array();
-		$data['attendance_record'] = $this->session->userdata('attendance_record');
 		$this->view->set($data);
 		$this->view->load('content', 'dashboard');
 		$this->view->render();
@@ -34,7 +33,7 @@ class Employees extends CI_Controller {
 		$date_time =  date("Y-m-d H:i:s",$d);
 
 		$data = array(
-			'UserId' => '1',
+			'UserId' => $this->session->userdata('id'),
 			'date' => $date,
 			'timeIn' => $date_time,
 		);
@@ -62,7 +61,7 @@ class Employees extends CI_Controller {
 		$date_time =  date("Y-m-d H:i:s",$d);
 
 		$data = array(
-			'userId' => '1',
+			'userId' => $this->session->userdata('id'),
 			'date' => $date,
 			'timeOut' => $date_time,
 		);
@@ -75,7 +74,7 @@ class Employees extends CI_Controller {
 			$attendance_record = $this->session->userdata('attendance_record');
 			$attendance_record['check_in'] = TRUE;
 			$attendance_record['check_out'] = FALSE;
-			$attendance_record['absent'] = TRUE;
+			$attendance_record['absent'] = FALSE;
 			$this->session->set_userdata('attendance_record', $attendance_record);
 		}
 		redirect('dashboard');
@@ -89,7 +88,7 @@ class Employees extends CI_Controller {
 		$date = date("Y-m-d",$d);
 
 		$data = array(
-			'userId' => '1',
+			'userId' => $this->session->userdata('id'),
 			'date' => $date,
 			'absent' => 1,
 		);
@@ -110,6 +109,7 @@ class Employees extends CI_Controller {
 	public function listAttendances()
 	{	
 		$data = array();
+		$data['navigation'] = 'overview';
 		$this->load->library("pagination");
 		$userId = $this->session->userdata('id');
 		$this->load->model('Attendance');
@@ -118,7 +118,7 @@ class Employees extends CI_Controller {
         $config["base_url"] = base_url() . "employees/listAttendances";
         $config["total_rows"] = $this->Attendance->listAttendances_count($userId);
         $config["per_page"] = 1;
-        $config["uri_segment"] = 2;
+        $config["uri_segment"] = 3;
 
         $this->pagination->initialize($config);
 
@@ -131,8 +131,10 @@ class Employees extends CI_Controller {
 		$this->view->render();
 	}
 	public function listEmployees()
-	{
+	{	
+		
 		$data = array();
+		$data['navigation'] = 'employees';
 		$this->load->model('User');
 		$data['employees'] = $this->User->listEmployees();
 
@@ -142,9 +144,40 @@ class Employees extends CI_Controller {
 
 
 	}
+	
+	public function viewEmployee($userId = NULL)
+	{	
+		if (!$userId)
+			redirect('employees/listEmployees');
+		$data = array();
+		$userId = !$userId ? $userId : $this->session->userdata('id');
+		$data['navigation'] = 'employees';
+		$this->load->library("pagination");
+		$this->load->model('Attendance');
+
+		$config = array();
+        $config["base_url"] = base_url() . "employees/viewEmployee";
+        $config["total_rows"] = $this->Attendance->listAttendances_count($userId);
+		//print_r($config["total_rows"]); exit;
+        $config["per_page"] = 1;
+        $config["uri_segment"] = 3;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["attendances"] = $this->Attendance->listAttendances($userId,$config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
+
+		$this->view->set($data);
+		$this->view->load('content', 'overview');
+		$this->view->render();
+
+
+	}
 	public function register()
 	{
 		$data = array();
+		$data['navigation'] = 'register';
 		if ($_POST)
 		{
 			$fullName = $this->input->post('fullName');
@@ -186,7 +219,9 @@ class Employees extends CI_Controller {
 			}
 			else
 			{
-				$data['error'] = 'Some fields are missing...';
+				$this->session->set_flashdata('error', 'Some fields are missing...');
+				redirect('employees/register');
+
 			}
 		}
 		$this->view->set($data);
@@ -194,23 +229,31 @@ class Employees extends CI_Controller {
 		$this->view->render();
 	}
 	
-	public function edit($employeeId)
-	{	
+	public function edit($employeeId = NULL)
+	{
+		if (!$employeeId)
+			redirect('employees/listEmployees');
+		$data = array();
+		$data['navigation'] = 'employees';
 		$this->load->model('User');
 		$data['employee'] = $this->User->getEditUser($employeeId);
 		$this->view->set($data);
 		$this->view->load('content', 'edit');
 		$this->view->render();	
 	}
-	public function delete($employeeId)
+	public function delete($employeeId = NULL)
 	{
+		if (!$employeeId)
+			redirect('employees/listEmployees');
 		$newStatus = 0;
 		$this->load->model('User');
 		$this->User->delete($employeeId,$newStatus);
 		redirect('employees');
 	}
-	public function retrieve($employeeId)
+	public function retrieve($employeeId = NULL)
 	{
+		if (!$employeeId)
+			redirect('employees/listEmployees');
 		$this->load->model('User');
 		$newStatus = 1;
 		$this->load->model('User');

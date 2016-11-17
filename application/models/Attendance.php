@@ -28,8 +28,9 @@ class Attendance extends CI_Model{
     }
     function listAttendances_count($userId)
     {   
-        $this->db->where('id' , $userId);
-        return $this->db->count_all("attendance");
+        $this->db->where('userId' , $userId);
+        $result = $this->db->get("attendance");
+        return $result->num_rows();
     }
     function listAttendances($userId,$limit, $start)
     {   
@@ -44,6 +45,7 @@ class Attendance extends CI_Model{
             }
             return $result;
         }
+        print_r($userId);exit;
         return false;
 
     }   

@@ -56,32 +56,32 @@ class Users extends CI_Controller {
 					}
 					else
 					{
-						$data['error'] = 'User is in-active...';
+						$this->session->set_flashdata('error', 'User is in-active...');
+						redirect('login');
 
 					}
 				}
 				else
-				{	
-					$this->session->set_flashdata('Error', 'User authentication failure...');
-					//$data['error'] = 'User authentication failure...';
-					redirect('dashboard');
+				{
+					$this->session->set_flashdata('error', 'User authentication failure...');
+					redirect('login');
 					
 				}
 			}
 			else
-			{	
-				$this->session->set_flashdata('error', 'User authentication failure...');
-				$this->session->keep_flashdata('error');
-				redirect('dashboard');
-				$data['error'] = 'Enter Id or Password';
+			{
+				$this->session->set_flashdata('error', 'Enter Id or Password...');
+				redirect('login');
 			}
 		}
 		$this->view->set($data);
 		$this->view->load('content', 'home');
 		$this->view->render();
 	}
-	function editProfile($id)
+	function editProfile($id = NULL)
 	{
+		if (!$id)
+			redirect ('employees/listEmployees');
 		$data = array();
 		if ($_POST)
 		{
@@ -105,7 +105,7 @@ class Users extends CI_Controller {
 
 				if($result)
 				{
-					redirect('dashboard');
+					redirect('employees/edit/' . $id);
 					
 				}
 				else

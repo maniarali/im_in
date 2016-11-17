@@ -3,18 +3,18 @@
 			   My Monthly Attendance
             
                 <div>
-                    <table border="5" width="100%">
+                    <table border="0" class="table table-striped" width="100%">
                         <tr>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Role</td>
-                        <td>Edit</td>
-                        <td>Status</td>
-                        <td>Block/Unblock</td>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                        <th>Status</th>
+                        <th>Block/Unblock</th>
                         </tr>
                         <?php foreach ($employees as $employee) : ?>
                         <tr>
-                            <td> <?php echo $employee->fullName; ?> </td>
+                            <td> <?php echo '<a href="' . site_url('employees/viewEmployee/' . $employee->id) . '">'.$employee->fullName.'</a>'; ?> </td>
                             <td> <?php echo $employee->email; ?> </td>
                             <td> <?php echo $employee->role; ?> </td>
                             <td> <?php echo '<a href="' . site_url('employees/edit/' . $employee->id) . '">Edit</a>'; ?> </td>

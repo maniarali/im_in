@@ -107,19 +107,28 @@ class Employees extends CI_Controller {
 		}
 		redirect('dashboard');
 	}
-	
 	public function listAttendances()
-	{
+	{	
 		$data = array();
-		$this->load->model('Attendance');
+		$this->load->library("pagination");
 		$userId = $this->session->userdata('id');
-		$data['attendances'] = $this->Attendance->listAttendances($userId);
+		$this->load->model('Attendance');
+
+		$config = array();
+        $config["base_url"] = base_url() . "employees/listAttendances";
+        $config["total_rows"] = $this->Attendance->listAttendances_count($userId);
+        $config["per_page"] = 1;
+        $config["uri_segment"] = 2;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["attendances"] = $this->Attendance->listAttendances($userId,$config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
 
 		$this->view->set($data);
 		$this->view->load('content', 'overview');
 		$this->view->render();
-
-
 	}
 	public function listEmployees()
 	{

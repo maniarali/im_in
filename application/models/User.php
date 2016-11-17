@@ -30,6 +30,14 @@ class User extends CI_Model{
         $result = $query->result();
         return $result;
     }
+    /*
+    function delete($id,$newStatus)
+    {
+        $this->db->set('status', $newStatus);
+        $this->db->where('id' => $id);
+        
+        return $this->db->update('user');
+    }*/
 
 }
 ?>

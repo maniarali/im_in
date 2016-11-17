@@ -7,8 +7,8 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();
 		$this->view->layout = 'partials/layout';
-		$this->view->load('header', 'partials/header');
-		$this->view->load('footer', 'partials/footer');	
+		$this->view->load('header', '');
+		$this->view->load('footer', '');	
 	}
 
 	public function register(){

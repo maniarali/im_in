@@ -10,6 +10,8 @@ class Employees extends CI_Controller {
 		if (!$this->session->userdata('id'))
 			redirect('login');
 
+		
+		$this->load->model('User');
 		$this->view->layout = 'partials/layout';
 		$this->view->load('header', 'partials/header');
 		$this->view->load('footer', 'partials/footer');
@@ -170,4 +172,13 @@ class Employees extends CI_Controller {
 		$this->view->load('content', 'register');
 		$this->view->render();
 	}
+/*
+	public function delete($employeeId)
+	{
+		
+		$newStatus = 0
+		//$this->User->delete($id,$newStatus);
+		//$this->view->load('content', 'listEmployees');
+		//$this->view->render();
+	}*/
 }

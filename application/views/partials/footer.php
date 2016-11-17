@@ -1,6 +1,6 @@
 
 		<div class="footer">
-			<h4>We are working to enhance your daily office experience. <a href="contactUs.html" class="other-links">Contact Us </a></h4>  
+			<h4>HK Consultancy Pakistan Pvt Ltd - The Australian IMMIGRATION Company in Karachi</h4>  
 		</div>
 	</body>
 </html>

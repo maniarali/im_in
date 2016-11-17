@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php if (isset($error)) : ?>
 			<?php echo $error; ?>
 		<?php endif; ?>
+		<?php echo $this->session->flashdata('Error'); ?>
 		<?php echo form_open("users"); ?>
 			<div class="form-inline">
 				<div class="form-group">

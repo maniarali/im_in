@@ -25,6 +25,14 @@ class Attendance extends CI_Model{
         $this->db->where($array);
         
         return $this->db->update('attendance');
-    }       
+    }
+    function listAttendances($userId)
+    {   
+        $this->db->select('id, date, absent, timeIn, timeOut');
+        $this->db->where('userId', $userId);
+        $query = $this->db->get('attendance');
+        $result = $query->result();
+        return $result;
+    }   
 }
 ?>

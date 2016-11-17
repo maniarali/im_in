@@ -11,7 +11,6 @@ class Employees extends CI_Controller {
 			redirect('login');
 
 		
-		$this->load->model('User');
 		$this->view->layout = 'partials/layout';
 		$this->view->load('header', 'partials/header');
 		$this->view->load('footer', 'partials/footer');
@@ -108,7 +107,20 @@ class Employees extends CI_Controller {
 		}
 		redirect('dashboard');
 	}
+	
+	public function listAttendances()
+	{
+		$data = array();
+		$this->load->model('Attendance');
+		$userId = $this->session->userdata('id');
+		$data['attendances'] = $this->Attendance->listAttendances($userId);
 
+		$this->view->set($data);
+		$this->view->load('content', 'overview');
+		$this->view->render();
+
+
+	}
 	public function listEmployees()
 	{
 		$data = array();
@@ -172,13 +184,29 @@ class Employees extends CI_Controller {
 		$this->view->load('content', 'register');
 		$this->view->render();
 	}
-/*
+	
+	public function edit($employeeId)
+	{	
+		$this->load->model('User');
+		$data['employee'] = $this->User->getEditUser($employeeId);
+		$this->view->set($data);
+		$this->view->load('content', 'edit');
+		$this->view->render();	
+	}
 	public function delete($employeeId)
 	{
-		
-		$newStatus = 0
-		//$this->User->delete($id,$newStatus);
-		//$this->view->load('content', 'listEmployees');
-		//$this->view->render();
-	}*/
+		$newStatus = 0;
+		$this->load->model('User');
+		$this->User->delete($employeeId,$newStatus);
+		redirect('employees');
+	}
+	public function retrieve($employeeId)
+	{
+		$this->load->model('User');
+		$newStatus = 1;
+		$this->load->model('User');
+		$this->User->delete($employeeId,$newStatus);
+		redirect('employees');
+	}
+
 }

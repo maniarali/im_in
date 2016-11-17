@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>assets/css/style.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
   	<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/scipt.js"></script>
 
 </head>
 
@@ -56,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
-							<a href="#">
+							<a href="<?php echo site_url('employees/listAttendances'); ?>">
 							<i class="glyphicon glyphicon-home"></i>
 							Overview </a>
 						</li>

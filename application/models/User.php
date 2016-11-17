@@ -14,6 +14,15 @@ class User extends CI_Model{
 		$result = $query->row();
 		return $result;
     }
+    function getEditUser($id = NULL)
+	{
+		if (!$id)
+			return NULL;
+        $query = $this->db->get_where('user',array('id' => $id));
+		$result = $query->row();
+		return $result;
+    }
+
 
     function register($data = NULL)
 	{
@@ -21,7 +30,14 @@ class User extends CI_Model{
 			return NULL;
         return $this->db->insert('user', $data);
     }
-
+    function edit($data = NULL,$id)
+	{
+		if (!$data)
+			return NULL;
+        $this->db->set($data);
+        $this->db->where('id' , $id);
+        return $this->db->update('user');
+    }
     function listEmployees()
     {   
         $this->db->select('id, fullName, email, role, status');
@@ -30,14 +46,14 @@ class User extends CI_Model{
         $result = $query->result();
         return $result;
     }
-    /*
+    
     function delete($id,$newStatus)
     {
         $this->db->set('status', $newStatus);
-        $this->db->where('id' => $id);
+        $this->db->where('id' , $id);
         
         return $this->db->update('user');
-    }*/
+    }
 
 }
 ?>

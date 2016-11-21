@@ -31,11 +31,13 @@ class Employees extends CI_Controller {
 		$d=strtotime("now");
 		$date = date("Y-m-d",$d);
 		$date_time =  date("Y-m-d H:i:s",$d);
+		$IP = $_SERVER['REMOTE_ADDR'];
 
 		$data = array(
 			'UserId' => $this->session->userdata('id'),
 			'date' => $date,
 			'timeIn' => $date_time,
+			'ipAddress' => $IP
 		);
 
 		$this->load->model('Attendance');
@@ -115,10 +117,25 @@ class Employees extends CI_Controller {
 		$this->load->model('Attendance');
 
 		$config = array();
-        $config["base_url"] = base_url() . "employees/listAttendances";
+        $config["base_url"] = base_url()."employees/listAttendances";
         $config["total_rows"] = $this->Attendance->listAttendances_count($userId);
-        $config["per_page"] = 1;
+        $config["per_page"] = 3;
         $config["uri_segment"] = 3;
+
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
 
         $this->pagination->initialize($config);
 
@@ -131,43 +148,86 @@ class Employees extends CI_Controller {
 		$this->view->render();
 	}
 	public function listEmployees()
-	{	
-		
+	{
 		$data = array();
 		$data['navigation'] = 'employees';
+		$this->load->library("pagination");
+	
 		$this->load->model('User');
-		$data['employees'] = $this->User->listEmployees();
+		
+		$config = array();
+        $config["base_url"] = base_url()."employees/listEmployees";
+        $config["total_rows"] = $this->User->listEmployees_count();
+        $config["per_page"] = 5;
+        $config["uri_segment"] = 3;
 
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+
+		$this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["employees"] = $this->User->listEmployees($config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
 		$this->view->set($data);
 		$this->view->load('content', 'listEmployees');
 		$this->view->render();
 
 
-	}
 	
+	}
+
 	public function viewEmployee($userId = NULL)
 	{	
 		if (!$userId)
 			redirect('employees/listEmployees');
 		$data = array();
-		$userId = !$userId ? $userId : $this->session->userdata('id');
+		//$userId = !$userId ? $userId : $this->session->userdata('id');
 		$data['navigation'] = 'employees';
 		$this->load->library("pagination");
 		$this->load->model('Attendance');
 
 		$config = array();
-        $config["base_url"] = base_url() . "employees/viewEmployee";
-        $config["total_rows"] = $this->Attendance->listAttendances_count($userId);
+        $config["base_url"] = base_url() . "employees/viewEmployee/".$userId;
+		//print_r($config["base_url"]);
+        $config["total_rows"] = $this->Attendance->listselAttendances_count($userId);
 		//print_r($config["total_rows"]); exit;
-        $config["per_page"] = 1;
-        $config["uri_segment"] = 3;
+        $config["per_page"] = 4;
+        $config["uri_segment"] = 4;
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
 
         $this->pagination->initialize($config);
 
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data["attendances"] = $this->Attendance->listAttendances($userId,$config["per_page"], $page);
+       	$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $data["attendances"] = $this->Attendance->listselAttendances($userId, $config["per_page"],$page);
         $data["links"] = $this->pagination->create_links();
-
+		
+		//print_r($data);exit;
 		$this->view->set($data);
 		$this->view->load('content', 'overview');
 		$this->view->render();
@@ -203,8 +263,9 @@ class Employees extends CI_Controller {
 					$result = $this->User->register($data);
 
 					if($result)
-					{
-						redirect('dashboard');
+					{	
+						$this->session->set_flashdata('success', 'User added successfully');
+						redirect('employees/register');
 						
 					}
 					else
@@ -248,17 +309,61 @@ class Employees extends CI_Controller {
 		$newStatus = 0;
 		$this->load->model('User');
 		$this->User->delete($employeeId,$newStatus);
-		redirect('employees');
+		redirect('employees/listEmployees');
 	}
 	public function retrieve($employeeId = NULL)
 	{
 		if (!$employeeId)
 			redirect('employees/listEmployees');
-		$this->load->model('User');
+		
 		$newStatus = 1;
 		$this->load->model('User');
 		$this->User->delete($employeeId,$newStatus);
-		redirect('employees');
+		redirect('employees/listEmployees');
+	}
+	public function changePassword()
+	{	
+		if ($_POST)
+		{
+			$password = $this->input->post('password');
+			$c_password = $this->input->post('c_password');
+			if($password!='' && $c_password!=''){
+				if($password==$c_password)
+				{
+					$employeeId = $this->session->userdata('id');
+					$this->load->model('User');
+					
+					
+					$result = $this->User->password($employeeId,md5($password));
+
+					if($result)
+					{	
+						$this->session->set_flashdata('success', 'User added successfully');
+						redirect('employees');
+						
+					}
+					else
+					{
+						$data['error'] = 'User in saving data...';
+					}
+				}
+				else
+				{
+					$this->session->set_flashdata('error', 'Password not matched');
+				}
+			}
+			else
+			{
+				$this->session->set_flashdata('error', 'Field are missing');
+			}
+		}
+			
+		
+		$this->view->load('content', 'changePassword');
+		$this->view->render();
 	}
 
+		
 }
+
+//}

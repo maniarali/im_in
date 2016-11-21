@@ -13,7 +13,7 @@ class Users extends CI_Controller {
 	}
 
 	public function index()
-	{
+	{		
 		if ($this->session->userdata('id'))
 			redirect('dashboard');
 
@@ -104,18 +104,19 @@ class Users extends CI_Controller {
 				$result = $this->User->edit($data,$id);
 
 				if($result)
-				{
+				{	
+					$this->session->set_flashdata('success', 'You have updated data');
 					redirect('employees/edit/' . $id);
 					
 				}
 				else
-				{
-					$data['error'] = 'User in saving data...';
+				{	
+					$this->session->set_flashdata('error', 'User in saving data...');
 				}
 			}
 			else
-			{
-				$data['error'] = 'Some fields are missing...';
+			{	
+				$this->session->set_flashdata('error', 'Some fields are missing...');
 			}
 		}
 		$this->view->set($data);

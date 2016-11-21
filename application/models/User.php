@@ -38,18 +38,49 @@ class User extends CI_Model{
         $this->db->where('id' , $id);
         return $this->db->update('user');
     }
-    function listEmployees()
+    
+    function listEmployees_count()
     {   
+        $this->db->where('role !=', 'admin');
+        $result = $this->db->get('user');
+        return $result->num_rows();
+    }
+    function listEmployees($limit, $start)
+    {   
+        $this->db->limit($limit, $start);
         $this->db->select('id, fullName, email, role, status');
         $this->db->where('role !=', 'admin');
         $query = $this->db->get('user');
         $result = $query->result();
-        return $result;
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $result;
+        }
+        return false;
+
     }
+
+    // function listEmployees()
+    // {   
+    //     $this->db->select('id, fullName, email, role, status');
+    //     $this->db->where('role !=', 'admin');
+    //     $query = $this->db->get('user');
+    //     $result = $query->result();
+    //     return $result;
+    // }
     
     function delete($id,$newStatus)
     {
         $this->db->set('status', $newStatus);
+        $this->db->where('id' , $id);
+        
+        return $this->db->update('user');
+    }
+    function password($id,$password)
+    {
+        $this->db->set('password', $password);
         $this->db->where('id' , $id);
         
         return $this->db->update('user');

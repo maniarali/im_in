@@ -32,10 +32,11 @@ class Attendance extends CI_Model{
         $result = $this->db->get("attendance");
         return $result->num_rows();
     }
+    
     function listAttendances($userId,$limit, $start)
     {   
         $this->db->limit($limit, $start);
-        $this->db->select('id, date, absent, timeIn, timeOut');
+        $this->db->select('id, date, absent, timeIn, timeOut, ipAddress');
         $this->db->where('userId', $userId);
         $query = $this->db->get('attendance');
         $result = $query->result();
@@ -45,7 +46,32 @@ class Attendance extends CI_Model{
             }
             return $result;
         }
-        print_r($userId);exit;
+        return false;
+
+    }
+    function listselAttendances_count($userId)
+    {   
+        $this->db->where('userId' , $userId);
+        $result = $this->db->get("attendance");
+        return $result->num_rows();
+    }
+    function listselAttendances($userId,$limit, $start)
+    {   
+      
+        $this->db->select('id, date, absent, timeIn, timeOut, ipAddress');
+        $this->db->where('userId', $userId);
+        $this->db->limit($limit, $start);
+        $query = $this->db->get('attendance');
+        $result = $query->result();
+        
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $result;
+        }
+        //echo 'userId='.$userId.',limit='.$limit.',start='.$start;
+        //echo $this->db->last_query();exit;
         return false;
 
     }   

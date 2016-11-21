@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 			<div class="footer">
-				<h4>HK Consultancy Pakistan Pvt Ltd - The Australian IMMIGRATION Company in Karachi <a href="contactUs.html" class="other-links">Contact Us </a></h4>  
+				<h4>HK Consultancy Pakistan Pvt Ltd - The Australian IMMIGRATION Company in Karachi</h4>  
 			</div>
 		</body>
 	</html>

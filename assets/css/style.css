@@ -335,8 +335,30 @@ Licensed under MIT
   
  }
 table th{
-  background-color: #c9302c;
+  background-color: #5a7391;
   color:#fff;
 
 }
-     
+
+.padding{
+  margin-top: 20px!important;
+}
+.heading{
+  font-weight: 600 !important;  
+}
+
+hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 3px solid #eee !important;
+}
+
+.smiley-image{
+  height: 40%;
+  width: 40%;
+  text-align: center !important;
+}
+.day-text{
+   font-weight: 600 !important;
+}

@@ -1,6 +1,7 @@
 <div class="col-md-9">
             <div class="profile-content">
-			   My Monthly Attendance
+			   All Employees
+               <hr/>
             
                 <div>
                     <table border="0" class="table table-striped" width="100%">
@@ -23,6 +24,7 @@
                         <?php endforeach; ?>
                         </tr>
                     </table>
+                    <?php echo $links; ?>
                 </div>
 
             </div>

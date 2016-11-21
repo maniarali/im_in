@@ -22,12 +22,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="row profile">
 		<div class="col-md-3">
 			<div class="profile-sidebar">
-				<!-- SIDEBAR USERPIC -->
+				
 				<div class="profile-userpic">
 					<img src="<?php echo base_url(); ?>assets/img/man-logo.png" class="img-responsive" alt="">
 				</div>
-				<!-- END SIDEBAR USERPIC -->
-				<!-- SIDEBAR USER TITLE -->
+				
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
 						<?php echo  $this->session->userdata('fullName'); ?>
@@ -36,8 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<?php echo  $this->session->userdata('role'); ?>
 					</div>
 				</div>
-				<!-- END SIDEBAR USER TITLE -->
-				<!-- SIDEBAR BUTTONS -->
+				
 				<div class="profile-userbuttons">
 					<?php $attendance_record = $this->session->userdata('attendance_record'); ?>
 					<?php if ($attendance_record['check_in']) : ?>
@@ -53,8 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php endif; ?>
 				</div>
 
-				<!-- END SIDEBAR BUTTONS -->
-				<!-- SIDEBAR MENU -->
+				
 				<div class="profile-usermenu">
 					<ul class="nav">
 							<li <?php echo (isset($navigation) && $navigation == 'overview' ? 'class="active"' : ''); ?>>
@@ -77,12 +74,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</li>
 							<?php endif; ?>
 						<li>
+							<a href="<?php echo site_url('employees/changePassword'); ?>">
+							<i class="glyphicon glyphicon-flag"></i>
+							Change Password </a>
+						</li>
+						<li>
 							<a href="<?php echo site_url('logout'); ?>">
 							<i class="glyphicon glyphicon-flag"></i>
 							Logout </a>
 						</li>
 					</ul>
 				</div>
-				<!-- END MENU -->
 			</div>
 		</div>
